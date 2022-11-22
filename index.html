@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Library</title>
+</head>
+<body>
+    <h1>My Book Library</h1>
+    <div>
+        <h3>Library overview</h3>
+        <p>Number of books: 0</p>
+        <p>Read books: 0</p>
+        <p>Unread books: 0</p>
+    </div>
+    <fieldset>
+        <legend>Book Details</legend>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" />
+        <br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" />
+        <br>
+        <label for="pages">Pages:</label>
+        <input type="number" id="pages" name="pages" />
+        <br>
+        <label for="read">Read:</label>
+        <input type="radio" id="read"      name="ticket_type"/>
+        <br>
+        <label for="published">Published:</label>
+        <input type="date" id="published" name="published" />
+        <br>
+        <label for="description">Description:</label>
+        <textarea rows="10" cols="60"></textarea>
+      </fieldset>
+      <div>
+        <h3>List:</h3>
+      </div>
+      <button id="addBtn">+</button>
+    <script src="script.js"></script>
+</body>
+</html>
