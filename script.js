@@ -1,11 +1,4 @@
-
-let bookTitle;
-let bookAuthor;
-let bookPages;
-let bookRead;
-let bookPublished;
-let bookDescription;
-let book;
+let newBook;
 let addBtn = document.getElementById("add-btn");
 let myLibrary = [];
 
@@ -22,18 +15,20 @@ function Book(title, author, pages, read, published, description) {
 }
 
 function addBookToLibrary() {
-    
+    myLibrary.push(newBook);
+    console.log(myLibrary);
 }
 
 addBtn.onclick = function() {
-    bookTitle = document.getElementById("title").value;
-    bookAuthor = document.getElementById("author").value;
-    bookPages = document.getElementById("pages").value;
-    bookRead = document.getElementById("read").value;
-    bookPublished = document.getElementById("published").value;
-    bookDescription = document.getElementById("description").value;
-    book = new Book(bookTitle, bookAuthor, bookPages, bookRead, bookPublished, bookDescription )
-    console.log(book);
+    newBook = new Book(
+        document.getElementById("title").value, 
+        document.getElementById("author").value,
+        document.getElementById("pages").value, 
+        document.getElementById("read").value, 
+        document.getElementById("published").value, 
+        document.getElementById("description").value 
+        )
+    addBookToLibrary();
 }
 
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
