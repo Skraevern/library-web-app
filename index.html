@@ -15,33 +15,32 @@
         <p>Read books: 0</p>
         <p>Unread books: 0</p>
     </div>
-    <div>
+    <div id="form">
         <fieldset>
             <legend>Book Details</legend>
-
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" />
-            <br>
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" />
+            <br>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" />
             <br>
             <label for="pages">Pages:</label>
             <input type="number" id="pages" name="pages" />
             <br>
             <label for="read">Read:</label>
-            <input type="radio" id="read"      name="ticket_type"/>
+            <input type="radio" id="read"      name="read"/>
             <br>
             <label for="published">Published:</label>
             <input type="date" id="published" name="published" />
             <br>
             <label for="description">Description:</label>
-            <textarea rows="10" cols="60"></textarea>
+            <textarea id="description" name="description" rows="10" cols="60"></textarea>
         </fieldset>
       </div>
-      <div>
+      <div id="book-list">
         <h3>List:</h3>
       </div>
-      <button id="addBtn">+</button>
+      <button id="add-btn">+</button>
     <script src="script.js"></script>
 </body>
 </html>
