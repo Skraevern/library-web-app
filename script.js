@@ -23,29 +23,43 @@ function displayLibraryCard() {
 
 
     for (const key in newBook) {
-        let text = document.createElement("p");
+        let value = document.createElement("p");
         
         switch (key) {
             case "title":
-                text.textContent = newBook[key];
-                text.style.fontWeight = 'bold';
+                value.textContent = newBook[key];
+                value.style.fontWeight = "bold";
                 break;
             case "author":
-                text.textContent = `By: ${newBook[key]}`;
+                value.textContent = `By: ${newBook[key]}`;
                 break;
             case "pages":
-                text.textContent = `Number of pages: ${newBook[key]}`;
+                value.textContent = `Number of pages: ${newBook[key]}`;
                 break;
             case "published":
-                text.textContent = `Released: ${newBook[key]}`
+                value.textContent = `Released: ${newBook[key]}`
                 break;
             case "read":
-                text.textContent = newBook[key];
+                let labelOverSwitch = document.createElement("p");
+                labelOverSwitch.classList.add("label");
+                labelOverSwitch.textContent = "Read:";
+                div.appendChild(labelOverSwitch);
+
+                value = document.createElement("label");
+                value.classList.add("switch");
+
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                value.appendChild(input);
+
+                let span = document.createElement("span");
+                span.classList.add("slider", "round");
+                value.appendChild(span);
                 break;
             case "description":
-                text.textContent = newBook[key];
+                value.textContent = newBook[key];
         }
-        div.appendChild(text);
+        div.appendChild(value);
     }
     libraryList.appendChild(div);
 }

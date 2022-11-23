@@ -18,22 +18,25 @@
     <div id="form">
         <fieldset>
             <legend>Book Details</legend>
-            <label for="title">Title:</label>
+            <p class="label">Title:</p>
             <input type="text" id="title" name="title" />
             <br>
-            <label for="author">Author:</label>
+            <p class="label">Author:</p>
             <input type="text" id="author" name="author" />
             <br>
-            <label for="pages">Pages:</label>
+            <p class="label">Pages:</p>
             <input type="number" id="pages" name="pages" />
             <br>
-            <label for="read">Read:</label>
-            <input type="checkbox" id="read"      name="read"/>
+            <p class="label">Read:</p>
+            <label for="read" class="switch">
+            <input type="checkbox" id="read" name="read"/>
+            <span class="slider round"></span>
+            </label>
             <br>
-            <label for="published">Published:</label>
+            <p class="label">Published:</p>
             <input type="date" id="published" name="published" />
             <br>
-            <label for="description">Description:</label>
+            <p class="label">Description:</p>
             <textarea id="description" name="description" rows="10" cols="60"></textarea>
         </fieldset>
       </div>
