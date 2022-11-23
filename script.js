@@ -1,6 +1,7 @@
 let newBook;
 let addBtn = document.getElementById("add-btn");
 let myLibrary = [];
+let libraryList = document.getElementById("book-list");
 
 function Book(title, author, pages, read, published, description) {
     this.title = title;
@@ -9,14 +10,25 @@ function Book(title, author, pages, read, published, description) {
     this.read = read;
     this.published = published;
     this.description = description;
-    this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    };
 }
 
 function addBookToLibrary() {
     myLibrary.push(newBook);
-    console.log(myLibrary);
+
+    let div = document.createElement("div");
+    div.classList.add("list-card"); 
+
+
+    for (const key in newBook) {
+        let text = document.createElement("p");
+        text.textContent = newBook[key];
+        if(key === "title") {
+            text.style.fontWeight = 'bold';
+            
+        }
+        div.appendChild(text);
+    }
+    libraryList.appendChild(div);
 }
 
 addBtn.onclick = function() {
@@ -30,6 +42,7 @@ addBtn.onclick = function() {
         )
     addBookToLibrary();
 }
+
 
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
