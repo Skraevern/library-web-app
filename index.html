@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Library</title>
-</head>
-<body>
-    <h1>My Book Library</h1>
-    <div id="library-overview">
-        <h3>Library overview</h3>
-        <p>Number of books: 0</p>
-        <p>Read books: 0</p>
-        <p>Unread books: 0</p>
-    </div>
-    <div id="form">
-        <fieldset>
-            <legend>Book Details</legend>
-            <p class="label">Title:</p>
-            <input type="text" id="title" name="title" />
-            <br>
-            <p class="label">Author:</p>
-            <input type="text" id="author" name="author" />
-            <br>
-            <p class="label">Pages:</p>
-            <input type="number" id="pages" name="pages" />
-            <br>
-            <p class="label">Read:</p>
-            <label for="read" class="switch">
-            <input type="checkbox" id="read" name="read"/>
-            <span class="slider round"></span>
-            </label>
-            <br>
-            <p class="label">Published:</p>
-            <input type="date" id="published" name="published" />
-            <br>
-            <p class="label">Description:</p>
-            <textarea id="description" name="description" rows="10" cols="60"></textarea>
-        </fieldset>
-      </div>
-      <div id="book-list">
-        <h3>List:</h3>
-        <div class="list-card">
-            <p><strong>The Hobbit</strong></p>
-            <p>By: J.R.R</p>
-            <p>Number of pages: 255</p>
-            <p>Released: 12:15:2022</p>
-            <p>Read: Yes</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Library</title>
+    </head>
+    <body>
+        <div id="main">
+            <h1>My Book Library</h1>
+            <div id="library-overview">
+                <h3>Library overview</h3>
+                <p>Number of books: 0</p>
+                <p>Read books: 0</p>
+                <p>Unread books: 0</p>
+            </div>
+            <div id="book-list">
+                <h3>List:</h3>
+                <div class="list-card">
+                    <p><strong>The Hobbit</strong></p>
+                    <p>By: J.R.R</p>
+                    <p>Number of pages: 255</p>
+                    <p>Released: 12:15:2022</p>
+                    <p>Read: Yes</p>
+                </div>
+            </div>
+            <button id="add-btn">+</button>
         </div>
-      </div>
-      <button id="add-btn">+</button>
-    <script src="script.js"></script>
-</body>
+        <div id="form">
+            <fieldset>
+                <legend>Book Details</legend>
+                <p class="label">Title:</p>
+                <input type="text" id="title" name="title" />
+                <br />
+                <p class="label">Author:</p>
+                <input type="text" id="author" name="author" />
+                <br />
+                <p class="label">Pages:</p>
+                <input type="number" id="pages" name="pages" />
+                <br />
+                <p class="label">Read:</p>
+                <label for="read" class="switch">
+                    <input type="checkbox" id="read" name="read" />
+                    <span class="slider round"></span>
+                </label>
+                <br />
+                <p class="label">Published:</p>
+                <input type="date" id="published" name="published" />
+                <br />
+                <p class="label">Description:</p>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="10"
+                    cols="60"
+                ></textarea>
+                <br />
+                <button id="add-to-library-btn">Add Book to Library</button>
+                <button id="cancel-btn">Cancel</button>
+            </fieldset>
+        <script src="script.js"></script>
+    </body>
 </html>
