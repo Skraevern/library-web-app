@@ -15,6 +15,8 @@ let totalReadBooksText;
 let totalUnreadBooksText;
 let inputElems = document.getElementsByTagName("input");
 let formReadCheckbox = document.getElementById("read");
+let editFormBtn = document.getElementById("edit-form-btn");
+editFormBtn.style.display = "none";
 
 console.log(formReadCheckbox.checked);
 
@@ -37,7 +39,7 @@ function addBookToLibrary() {
 function displayLibraryCard() {
     let div = document.createElement("div");
     div.classList.add("list-card");
-
+    div.id = `div${myLibrary.length - 1}`;
     for (const key in newBook) {
         let value = document.createElement("p");
 
@@ -87,6 +89,10 @@ function displayLibraryCard() {
         }
         div.appendChild(value);
     }
+    let editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", edit);
+    div.appendChild(editBtn);
     libraryList.appendChild(div);
 }
 
@@ -97,7 +103,9 @@ clearForm = function () {
     document.getElementById("published").value = "";
     document.getElementById("read").value = "";
     document.getElementById("description").value = "";
-    // form.style.display = "none";
+    form.style.display = "none";
+    addBookToLibraryBtn.style.display = "inline";
+    editFormBtn.style.display = "none";
     mainPage.classList.remove("blur");
 };
 
@@ -164,7 +172,21 @@ function checkboxes() {
         }
     }
 }
+function edit() {
+    let divId = this.parentNode.id;
+    let bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
+    form.style.display = "block";
+    mainPage.classList.add("blur");
+    editFormBtn.style.display = "inline";
+    addBookToLibraryBtn.style.display = "none";
 
+    // document.getElementById("title").value,
+    // document.getElementById("author").value,
+    // document.getElementById("pages").value,
+    // document.getElementById("published").value,
+    // document.getElementById("read").value,
+    // document.getElementById("description").value
+}
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
