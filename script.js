@@ -14,7 +14,9 @@ let totalBooksText;
 let totalReadBooksText;
 let totalUnreadBooksText;
 let inputElems = document.getElementsByTagName("input");
-let checkbox = document.querySelector("input[name=checkbox]");
+let formReadCheckbox = document.getElementById("read");
+
+console.log(formReadCheckbox.checked);
 
 function Book(title, author, pages, published, read, description) {
     this.title = title;
@@ -65,6 +67,10 @@ function displayLibraryCard() {
                 let input = document.createElement("input");
                 input.type = "checkbox";
                 input.name = "checkbox";
+                formReadCheckbox.checked === true
+                    ? (input.checked = true)
+                    : (input.checked = false);
+
                 input.addEventListener("change", updateLibraryOverview);
                 value.appendChild(input);
 
