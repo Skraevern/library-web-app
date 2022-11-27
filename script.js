@@ -8,11 +8,13 @@ let form = document.getElementById("form");
 let cancelBtn = document.getElementById("cancel-btn");
 let mainPage = document.getElementById("main");
 let totalBooks = myLibrary.length;
-let totalReadBooks = 33;
-let totalUnreadBooks = 66;
+let totalReadBooks;
+let totalUnreadBooks;
 let totalBooksText;
 let totalReadBooksText;
 let totalUnreadBooksText;
+let inputElems = document.getElementsByTagName("input");
+let checkbox = document.querySelector("input[name=checkbox]");
 
 function Book(title, author, pages, published, read, description) {
     this.title = title;
@@ -62,6 +64,8 @@ function displayLibraryCard() {
 
                 let input = document.createElement("input");
                 input.type = "checkbox";
+                input.name = "checkbox";
+                input.addEventListener("change", updateLibraryOverview);
                 value.appendChild(input);
 
                 let span = document.createElement("span");
@@ -83,7 +87,7 @@ clearForm = function () {
     document.getElementById("published").value = "";
     document.getElementById("read").value = "";
     document.getElementById("description").value = "";
-    form.style.display = "none";
+    // form.style.display = "none";
     mainPage.classList.remove("blur");
 };
 
@@ -116,10 +120,31 @@ function displayLibraryOverview() {
     libraryOverview.appendChild(totalUnreadBooksText);
 }
 function updateLibraryOverview() {
+    checkboxes();
     totalBooksText.textContent = `Number of Books: ${totalBooks}`;
     totalReadBooksText.textContent = `Read Books: ${totalReadBooks}`;
     totalUnreadBooksText.textContent = `Unread Books: ${totalUnreadBooks}`;
 }
+function checkboxes() {
+    // Counts checkbox statuses.
+    inputElems = document.getElementsByTagName("input");
+    totalReadBooks = 0;
+    totalUnreadBooks = -1; //Because hidden checkbox is still counted.
+    for (let i = 0; i < inputElems.length; i++) {
+        if (
+            inputElems[i].type === "checkbox" &&
+            inputElems[i].checked === true
+        ) {
+            totalReadBooks++;
+        } else if (
+            inputElems[i].type === "checkbox" &&
+            inputElems[i].checked === false
+        ) {
+            totalUnreadBooks++;
+        }
+    }
+}
+
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
