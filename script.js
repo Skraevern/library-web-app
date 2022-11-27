@@ -50,10 +50,14 @@ function displayLibraryCard() {
                 value.textContent = `By: ${newBook[key]}`;
                 break;
             case "pages":
-                value.textContent = `Number of pages: ${newBook[key]}`;
+                document.getElementById("pages").value === ""
+                    ? (value.textContent = "Number of pages: ---")
+                    : (value.textContent = `Number of pages: ${newBook[key]}`);
                 break;
             case "published":
-                value.textContent = `Released: ${newBook[key]}`;
+                document.getElementById("published").value === ""
+                    ? (value.textContent = "Published: ---")
+                    : (value.textContent = `Published: ${newBook[key]}`);
                 break;
             case "read":
                 let labelOverSwitch = document.createElement("p");
@@ -102,16 +106,26 @@ addBtn.onclick = function () {
     mainPage.classList.add("blur");
 };
 addBookToLibraryBtn.onclick = function () {
-    newBook = new Book(
-        document.getElementById("title").value,
-        document.getElementById("author").value,
-        document.getElementById("pages").value,
-        document.getElementById("published").value,
-        document.getElementById("read").value,
-        document.getElementById("description").value
-    );
-    addBookToLibrary();
-    clearForm();
+    let title = document.getElementById("title");
+    let author = document.getElementById("author");
+    if (title.value === "") {
+        document.getElementById("title-label").classList.add("wrong-input");
+    }
+    if (author.value === "") {
+        document.getElementById("author-label").classList.add("wrong-input");
+    }
+    if (title.value !== "" && author.value !== "") {
+        newBook = new Book(
+            document.getElementById("title").value,
+            document.getElementById("author").value,
+            document.getElementById("pages").value,
+            document.getElementById("published").value,
+            document.getElementById("read").value,
+            document.getElementById("description").value
+        );
+        addBookToLibrary();
+        clearForm();
+    }
 };
 cancelBtn.onclick = function () {
     clearForm();

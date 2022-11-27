@@ -85,3 +85,6 @@ input:checked + .slider:before {
 .blur {
     filter: blur(100px);
 }
+.wrong-input {
+    color: darkred;
+}
