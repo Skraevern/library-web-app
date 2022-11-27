@@ -3,9 +3,16 @@ let addBtn = document.getElementById("add-btn");
 let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
 let myLibrary = [];
 let libraryList = document.getElementById("book-list");
+let libraryOverview = document.getElementById("library-overview");
 let form = document.getElementById("form");
 let cancelBtn = document.getElementById("cancel-btn");
 let mainPage = document.getElementById("main");
+let totalBooks = myLibrary.length;
+let totalReadBooks = 33;
+let totalUnreadBooks = 66;
+let totalBooksText;
+let totalReadBooksText;
+let totalUnreadBooksText;
 
 function Book(title, author, pages, published, read, description) {
     this.title = title;
@@ -18,7 +25,9 @@ function Book(title, author, pages, published, read, description) {
 
 function addBookToLibrary() {
     myLibrary.push(newBook);
+    totalBooks = myLibrary.length;
     displayLibraryCard();
+    updateLibraryOverview();
 }
 
 function displayLibraryCard() {
@@ -97,6 +106,21 @@ addBookToLibraryBtn.onclick = function () {
 cancelBtn.onclick = function () {
     clearForm();
 };
+function displayLibraryOverview() {
+    totalBooksText = document.createElement("p");
+    totalReadBooksText = document.createElement("p");
+    totalUnreadBooksText = document.createElement("p");
+    updateLibraryOverview();
+    libraryOverview.appendChild(totalBooksText);
+    libraryOverview.appendChild(totalReadBooksText);
+    libraryOverview.appendChild(totalUnreadBooksText);
+}
+function updateLibraryOverview() {
+    totalBooksText.textContent = `Number of Books: ${totalBooks}`;
+    totalReadBooksText.textContent = `Read Books: ${totalReadBooks}`;
+    totalUnreadBooksText.textContent = `Unread Books: ${totalUnreadBooks}`;
+}
+displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
 //console.log(book1.info());
