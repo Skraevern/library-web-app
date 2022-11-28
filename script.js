@@ -1,11 +1,10 @@
 let newBook;
-let addBtn = document.getElementById("add-btn");
-let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
+
 let myLibrary = [];
 let libraryList = document.getElementById("book-list");
 let libraryOverview = document.getElementById("library-overview");
 let form = document.getElementById("form");
-let cancelBtn = document.getElementById("cancel-btn");
+
 let mainPage = document.getElementById("main");
 let totalBooks = myLibrary.length;
 let totalReadBooks;
@@ -15,10 +14,12 @@ let totalReadBooksText;
 let totalUnreadBooksText;
 let inputElems = document.getElementsByTagName("input");
 let formReadCheckbox = document.getElementById("read");
-let editFormBtn = document.getElementById("edit-form-btn");
-editFormBtn.style.display = "none";
 
-console.log(formReadCheckbox.checked);
+let addBtn = document.getElementById("add-btn");
+let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
+let editFormBtn = document.getElementById("edit-form-btn");
+let cancelBtn = document.getElementById("cancel-btn");
+editFormBtn.style.display = "none";
 
 function Book(title, author, pages, published, read, description) {
     this.title = title;
@@ -109,35 +110,6 @@ clearForm = function () {
     mainPage.classList.remove("blur");
 };
 
-addBtn.onclick = function () {
-    form.style.display = "block";
-    mainPage.classList.add("blur");
-};
-addBookToLibraryBtn.onclick = function () {
-    let title = document.getElementById("title");
-    let author = document.getElementById("author");
-    if (title.value === "") {
-        document.getElementById("title-label").classList.add("wrong-input");
-    }
-    if (author.value === "") {
-        document.getElementById("author-label").classList.add("wrong-input");
-    }
-    if (title.value !== "" && author.value !== "") {
-        newBook = new Book(
-            document.getElementById("title").value,
-            document.getElementById("author").value,
-            document.getElementById("pages").value,
-            document.getElementById("published").value,
-            document.getElementById("read").value,
-            document.getElementById("description").value
-        );
-        addBookToLibrary();
-        clearForm();
-    }
-};
-cancelBtn.onclick = function () {
-    clearForm();
-};
 function displayLibraryOverview() {
     totalBooksText = document.createElement("p");
     totalReadBooksText = document.createElement("p");
@@ -187,6 +159,38 @@ function edit() {
     // document.getElementById("read").value,
     // document.getElementById("description").value
 }
+
+addBtn.onclick = function () {
+    form.style.display = "block";
+    mainPage.classList.add("blur");
+};
+addBookToLibraryBtn.onclick = function () {
+    let title = document.getElementById("title");
+    let author = document.getElementById("author");
+    if (title.value === "") {
+        document.getElementById("title-label").classList.add("wrong-input");
+    }
+    if (author.value === "") {
+        document.getElementById("author-label").classList.add("wrong-input");
+    }
+    if (title.value !== "" && author.value !== "") {
+        newBook = new Book(
+            document.getElementById("title").value,
+            document.getElementById("author").value,
+            document.getElementById("pages").value,
+            document.getElementById("published").value,
+            document.getElementById("read").value,
+            document.getElementById("description").value
+        );
+        addBookToLibrary();
+        clearForm();
+    }
+};
+
+cancelBtn.onclick = function () {
+    clearForm();
+};
+
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
