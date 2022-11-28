@@ -1,6 +1,7 @@
 let newBook;
 
 let myLibrary = [];
+let displayMyLibraryArr = myLibrary;
 let libraryList = document.getElementById("book-list");
 let libraryOverview = document.getElementById("library-overview");
 let form = document.getElementById("form");
@@ -19,9 +20,9 @@ let bookNr;
 
 let addBtn = document.getElementById("add-btn");
 let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
-let editFormBtn = document.getElementById("edit-form-btn");
+let ConfirmEditFormBtn = document.getElementById("edit-form-btn");
 let cancelBtn = document.getElementById("cancel-btn");
-editFormBtn.style.display = "none";
+ConfirmEditFormBtn.style.display = "none";
 
 function Book(title, author, pages, published, read, description) {
     this.title = title;
@@ -40,75 +41,81 @@ function addBookToLibrary() {
 }
 
 function displayLibraryCard() {
-    let div = document.createElement("div");
-    div.classList.add("list-card");
-    div.id = `div${myLibrary.length - 1}`;
-    for (const key in newBook) {
-        let value = document.createElement("p");
-
-        switch (key) {
-            case "title":
-                value.textContent = newBook[key];
-                value.style.fontWeight = "bold";
-                break;
-            case "author":
-                value.textContent = `By: ${newBook[key]}`;
-                break;
-            case "pages":
-                document.getElementById("pages").value === ""
-                    ? (value.textContent = "Number of pages: ---")
-                    : (value.textContent = `Number of pages: ${newBook[key]}`);
-                break;
-            case "published":
-                document.getElementById("published").value === ""
-                    ? (value.textContent = "Published: ---")
-                    : (value.textContent = `Published: ${newBook[key]}`);
-                break;
-            case "read":
-                let labelOverSwitch = document.createElement("p");
-                labelOverSwitch.classList.add("label");
-                labelOverSwitch.textContent = "Read:";
-                div.appendChild(labelOverSwitch);
-
-                value = document.createElement("label");
-                value.classList.add("switch");
-
-                let input = document.createElement("input");
-                input.type = "checkbox";
-                input.name = "checkbox";
-                formReadCheckbox.checked === true
-                    ? (input.checked = true)
-                    : (input.checked = false);
-
-                input.addEventListener("change", updateLibraryOverview);
-                value.appendChild(input);
-
-                let span = document.createElement("span");
-                span.classList.add("slider", "round");
-                value.appendChild(span);
-                break;
-            case "description":
-                value.textContent = newBook[key];
+    libraryList.innerHTML = "";
+    displayMyLibraryArr = myLibrary;
+    for (let i = 0; i < displayMyLibraryArr.length; i++) {
+        let div = document.createElement("div");
+        div.classList.add("list-card");
+        div.id = `div${i}`;
+        
+        for (const key in displayMyLibraryArr[i]) {
+            let value = document.createElement("p");
+            switch (key) {
+                case "title":
+                    value.textContent = displayMyLibraryArr[i][key];
+                    value.style.fontWeight = "bold";
+                    break;
+                case "author":
+                    value.textContent = `By: ${displayMyLibraryArr[i][key]}`;
+                    break;
+                case "pages":
+                    document.getElementById("pages").value === ""
+                        ? (value.textContent = "Number of pages: ---")
+                        : (value.textContent = `Number of pages: ${displayMyLibraryArr[i][key]}`);
+                    break;
+                case "published":
+                    document.getElementById("published").value === ""
+                        ? (value.textContent = "Published: ---")
+                        : (value.textContent = `Published: ${displayMyLibraryArr[i][key]}`);
+                    break;
+                case "read":
+                    let labelOverSwitch = document.createElement("p");
+                    labelOverSwitch.classList.add("label");
+                    labelOverSwitch.textContent = "Read:";
+                    div.appendChild(labelOverSwitch);
+    
+                    value = document.createElement("label");
+                    value.classList.add("switch");
+    
+                    let input = document.createElement("input");
+                    input.type = "checkbox";
+                    input.name = "checkbox";
+                    console.log(this.read.value)
+                    formReadCheckbox.checked === true
+                        ? (input.checked = true)
+                        : (input.checked = false);
+    
+                    input.addEventListener("change", updateLibraryOverview);
+                    value.appendChild(input);
+    
+                    let span = document.createElement("span");
+                    span.classList.add("slider", "round");
+                    value.appendChild(span);
+                    break;
+                case "description":
+                    value.textContent = displayMyLibraryArr[i][key];
+            }
+            div.appendChild(value);
         }
-        div.appendChild(value);
+        let editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.addEventListener("click", edit);
+        div.appendChild(editBtn);
+        libraryList.appendChild(div);
     }
-    let editBtn = document.createElement("button");
-    editBtn.textContent = "Edit";
-    editBtn.addEventListener("click", edit);
-    div.appendChild(editBtn);
-    libraryList.appendChild(div);
 }
+
 
 clearForm = function () {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("pages").value = "";
     document.getElementById("published").value = "";
-    document.getElementById("read").value = "";
+    document.getElementById("read").value = "off";
     document.getElementById("description").value = "";
     form.style.display = "none";
     addBookToLibraryBtn.style.display = "inline";
-    editFormBtn.style.display = "none";
+    ConfirmEditFormBtn.style.display = "none";
     mainPage.classList.remove("blur");
 };
 
@@ -151,7 +158,7 @@ function edit() {
     bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
     form.style.display = "block";
     mainPage.classList.add("blur");
-    editFormBtn.style.display = "inline";
+    ConfirmEditFormBtn.style.display = "inline";
     addBookToLibraryBtn.style.display = "none";
     // Show stored values.
     document.getElementById("title").value = myLibrary[bookNr].title;
@@ -189,7 +196,8 @@ addBookToLibraryBtn.onclick = function () {
     }
 };
 
-editFormBtn.onclick = function() {
+ConfirmEditFormBtn.onclick = function() {
+    console.log(myLibrary[bookNr]);
     myLibrary[bookNr].title = document.getElementById("title").value;
     myLibrary[bookNr].author = document.getElementById("author").value;
     myLibrary[bookNr].pages = document.getElementById("pages").value;
@@ -198,6 +206,7 @@ editFormBtn.onclick = function() {
     myLibrary[bookNr].description = document.getElementById("description").value;
     console.log(myLibrary[bookNr]);
     clearForm();
+    displayLibraryCard();
 }
 
 cancelBtn.onclick = function () {
