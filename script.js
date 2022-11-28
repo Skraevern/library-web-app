@@ -14,6 +14,8 @@ let totalReadBooksText;
 let totalUnreadBooksText;
 let inputElems = document.getElementsByTagName("input");
 let formReadCheckbox = document.getElementById("read");
+let divId;
+let bookNr;
 
 let addBtn = document.getElementById("add-btn");
 let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
@@ -145,19 +147,19 @@ function checkboxes() {
     }
 }
 function edit() {
-    let divId = this.parentNode.id;
-    let bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
+    divId = this.parentNode.id; 
+    bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
     form.style.display = "block";
     mainPage.classList.add("blur");
     editFormBtn.style.display = "inline";
     addBookToLibraryBtn.style.display = "none";
-
-    // document.getElementById("title").value,
-    // document.getElementById("author").value,
-    // document.getElementById("pages").value,
-    // document.getElementById("published").value,
-    // document.getElementById("read").value,
-    // document.getElementById("description").value
+    // Show stored values.
+    document.getElementById("title").value = myLibrary[bookNr].title;
+    document.getElementById("author").value = myLibrary[bookNr].author;
+    document.getElementById("pages").value = myLibrary[bookNr].pages;
+    document.getElementById("published").value = myLibrary[bookNr].published;
+    document.getElementById("read").value = myLibrary[bookNr].read;
+    document.getElementById("description").value = myLibrary[bookNr].description;
 }
 
 addBtn.onclick = function () {
@@ -186,6 +188,17 @@ addBookToLibraryBtn.onclick = function () {
         clearForm();
     }
 };
+
+editFormBtn.onclick = function() {
+    myLibrary[bookNr].title = document.getElementById("title").value;
+    myLibrary[bookNr].author = document.getElementById("author").value;
+    myLibrary[bookNr].pages = document.getElementById("pages").value;
+    myLibrary[bookNr].published = document.getElementById("published").value;
+    myLibrary[bookNr].read = document.getElementById("read").value;
+    myLibrary[bookNr].description = document.getElementById("description").value;
+    console.log(myLibrary[bookNr]);
+    clearForm();
+}
 
 cancelBtn.onclick = function () {
     clearForm();
