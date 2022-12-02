@@ -1,8 +1,34 @@
 body {
-    background-color: darkkhaki;
+    background-image: linear-gradient(to right, rgb(0, 255, 132) , rgb(0, 255, 234));
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+#library-overview {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    width: 50%;
+}
+#library-overview > p, h3 {
+    margin: 10px;
+}
+#list-heading-container {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    align-items: center;
+}
+#list-heading-container > p {
+    justify-self: end;
+}
+#sort-by, #show {
+    padding: 1px;
+    margin: 20px;
+    min-width: auto;
+    min-height: 0;
 }
 .list-card {
-    background-color: lightgray;
+    background-color: rgb(185, 255, 254);
     border: 1px solid black;
 }
 .label {

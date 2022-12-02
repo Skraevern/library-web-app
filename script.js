@@ -42,9 +42,6 @@ function addBookToLibrary() {
 
 function displayLibraryCards() {
     libraryList.innerHTML = "";
-    const listHeading = document.createElement("h3");
-    listHeading.textContent = "List:";
-    libraryList.appendChild(listHeading);
     displayMyLibraryArr = myLibrary;
     for (let i = 0; i < displayMyLibraryArr.length; i++) {
         let div = document.createElement("div");

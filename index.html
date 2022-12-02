@@ -13,8 +13,25 @@
             <div id="library-overview">
                 <h3>Library overview</h3>
             </div>
+            <div id="list-heading-container">
+                <h3 id="list-heading">List:</h3>
+                <p>Show:</p>
+                <select name="show" id="show">
+                    <option value="all">All</option>
+                    <option value="read">Read</option>
+                    <option value="unread">Unread</option>
+                </select>
+                <p>Sort by:</p>
+                <select name="sort-by" id="sort-by">
+                    <option value="time-added">Time added</option>
+                    <option value="title-a-z">Title A - Z</option>
+                    <option value="title-z-a">Title Z - A</option>
+                    <option value="rating">Rating</option>
+                    <option value="pages">Pages</option>
+                    <option value="published">Published</option>
+                </select>
+            </div>
             <div id="book-list">
-                <h3>List:</h3>
                 <div class="list-card">
                     <p><em>Your library is empty... Example book:</em></p>
                     <p><strong>The Hobbit</strong></p>
