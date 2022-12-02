@@ -36,13 +36,15 @@ function Book(title, author, read, pages, published, description) {
 
 function addBookToLibrary() {
     myLibrary.push(newBook);
-    totalBooks = myLibrary.length;
-    displayLibraryCard();
+    displayLibraryCards();
     updateLibraryOverview();
 }
 
-function displayLibraryCard() {
+function displayLibraryCards() {
     libraryList.innerHTML = "";
+    const listHeading = document.createElement("h3");
+    listHeading.textContent = "List:";
+    libraryList.appendChild(listHeading);
     displayMyLibraryArr = myLibrary;
     for (let i = 0; i < displayMyLibraryArr.length; i++) {
         let div = document.createElement("div");
@@ -61,7 +63,7 @@ function displayLibraryCard() {
                     break;
                 case "read":
                     displayMyLibraryArr[i][key] === "read" ?
-                        value.textContent = "Read" : value.textContent = "Not read";  
+                        value.textContent = "Book read" : value.textContent = "Book not read";  
                     break;
                 case "pages":
                     value.textContent = `Number of Pages: ${displayMyLibraryArr[i][key]}`;
@@ -107,30 +109,24 @@ function displayLibraryOverview() {
     libraryOverview.appendChild(totalUnreadBooksText);
 }
 function updateLibraryOverview() {
-    checkboxes();
+    totalBooks = myLibrary.length;
+    totalReadBooks = 0;
+    totalUnreadBooks = 0;
+    
+    for (let i = 0; i < myLibrary.length; i++) {
+        console.log(myLibrary[i].read)
+        if (myLibrary[i].read === "read") {
+            totalReadBooks ++
+        } 
+        if (myLibrary[i].read === "unread") {
+            totalUnreadBooks ++
+        }
+    }
     totalBooksText.textContent = `Number of Books: ${totalBooks}`;
     totalReadBooksText.textContent = `Read Books: ${totalReadBooks}`;
     totalUnreadBooksText.textContent = `Unread Books: ${totalUnreadBooks}`;
 }
-function checkboxes() {
-    // Counts checkbox statuses.
-    inputElems = document.getElementsByTagName("input");
-    totalReadBooks = 0;
-    totalUnreadBooks = -1; //Because hidden checkbox is still counted.
-    for (let i = 0; i < inputElems.length; i++) {
-        if (
-            inputElems[i].type === "checkbox" &&
-            inputElems[i].checked === true
-        ) {
-            totalReadBooks++;
-        } else if (
-            inputElems[i].type === "checkbox" &&
-            inputElems[i].checked === false
-        ) {
-            totalUnreadBooks++;
-        }
-    }
-}
+
 function edit() {
     divId = this.parentNode.id; 
     bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
@@ -184,7 +180,8 @@ ConfirmEditFormBtn.onclick = function() {
     myLibrary[bookNr].description = document.getElementById("description").value;
     console.log(myLibrary[bookNr]);
     clearForm();
-    displayLibraryCard();
+    displayLibraryCards();
+    updateLibraryOverview();
 }
 
 cancelBtn.onclick = function () {
