@@ -23,13 +23,14 @@ let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
 let ConfirmEditFormBtn = document.getElementById("edit-form-btn");
 let cancelBtn = document.getElementById("cancel-btn");
 ConfirmEditFormBtn.style.display = "none";
+let testBtn = document.getElementById("test-btn");
 
-function Book(title, author, pages, published, read, description) {
+function Book(title, author, read, pages, published, description) {
     this.title = title;
     this.author = author;
+    this.read = read;
     this.pages = pages;
     this.published = published;
-    this.read = read;
     this.description = description;
 }
 
@@ -58,40 +59,17 @@ function displayLibraryCard() {
                 case "author":
                     value.textContent = `By: ${displayMyLibraryArr[i][key]}`;
                     break;
+                case "read":
+                    displayMyLibraryArr[i][key] === "read" ?
+                        value.textContent = "Read" : value.textContent = "Not read";  
+                    break;
                 case "pages":
-                    document.getElementById("pages").value === ""
-                        ? (value.textContent = "Number of pages: ---")
-                        : (value.textContent = `Number of pages: ${displayMyLibraryArr[i][key]}`);
+                    value.textContent = `Number of Pages: ${displayMyLibraryArr[i][key]}`;
                     break;
                 case "published":
-                    document.getElementById("published").value === ""
-                        ? (value.textContent = "Published: ---")
-                        : (value.textContent = `Published: ${displayMyLibraryArr[i][key]}`);
+                    value.textContent = `Published: ${displayMyLibraryArr[i][key]}`;
                     break;
-                case "read":
-                    let labelOverSwitch = document.createElement("p");
-                    labelOverSwitch.classList.add("label");
-                    labelOverSwitch.textContent = "Read:";
-                    div.appendChild(labelOverSwitch);
-    
-                    value = document.createElement("label");
-                    value.classList.add("switch");
-    
-                    let input = document.createElement("input");
-                    input.type = "checkbox";
-                    input.name = "checkbox";
-                    console.log(this.read.value)
-                    formReadCheckbox.checked === true
-                        ? (input.checked = true)
-                        : (input.checked = false);
-    
-                    input.addEventListener("change", updateLibraryOverview);
-                    value.appendChild(input);
-    
-                    let span = document.createElement("span");
-                    span.classList.add("slider", "round");
-                    value.appendChild(span);
-                    break;
+
                 case "description":
                     value.textContent = displayMyLibraryArr[i][key];
             }
@@ -109,9 +87,9 @@ function displayLibraryCard() {
 clearForm = function () {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
+    document.getElementById("read").value = "unread";
     document.getElementById("pages").value = "";
     document.getElementById("published").value = "";
-    document.getElementById("read").value = "off";
     document.getElementById("description").value = "";
     form.style.display = "none";
     addBookToLibraryBtn.style.display = "inline";
@@ -163,9 +141,9 @@ function edit() {
     // Show stored values.
     document.getElementById("title").value = myLibrary[bookNr].title;
     document.getElementById("author").value = myLibrary[bookNr].author;
+    document.getElementById("read").value = myLibrary[bookNr].read;
     document.getElementById("pages").value = myLibrary[bookNr].pages;
     document.getElementById("published").value = myLibrary[bookNr].published;
-    document.getElementById("read").value = myLibrary[bookNr].read;
     document.getElementById("description").value = myLibrary[bookNr].description;
 }
 
@@ -186,9 +164,9 @@ addBookToLibraryBtn.onclick = function () {
         newBook = new Book(
             document.getElementById("title").value,
             document.getElementById("author").value,
+            document.getElementById("read").value,
             document.getElementById("pages").value,
             document.getElementById("published").value,
-            document.getElementById("read").value,
             document.getElementById("description").value
         );
         addBookToLibrary();
@@ -200,9 +178,9 @@ ConfirmEditFormBtn.onclick = function() {
     console.log(myLibrary[bookNr]);
     myLibrary[bookNr].title = document.getElementById("title").value;
     myLibrary[bookNr].author = document.getElementById("author").value;
+    myLibrary[bookNr].read = document.getElementById("read").value;
     myLibrary[bookNr].pages = document.getElementById("pages").value;
     myLibrary[bookNr].published = document.getElementById("published").value;
-    myLibrary[bookNr].read = document.getElementById("read").value;
     myLibrary[bookNr].description = document.getElementById("description").value;
     console.log(myLibrary[bookNr]);
     clearForm();
@@ -212,6 +190,9 @@ ConfirmEditFormBtn.onclick = function() {
 cancelBtn.onclick = function () {
     clearForm();
 };
+testBtn.onclick = function() {
+    console.log(myLibrary);
+}
 
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");

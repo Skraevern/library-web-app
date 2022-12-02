@@ -24,6 +24,7 @@
                 </div>
             </div>
             <button id="add-btn">+</button>
+            <button id="test-btn">Test</button>
         </div>
         <div id="form">
             <fieldset>
@@ -34,14 +35,15 @@
                 <p class="label" id="author-label">Author:*</p>
                 <input type="text" id="author" name="author" required/>
                 <br />
+                <p class="label">Read:</p>
+                <select name="read" id="read">
+                    <option value="unread">Unread</option>
+                    <option value="read">Read</option>
+                </select>
+                <br />
                 <p class="label">Pages:</p>
                 <input type="number" id="pages" name="pages" />
-                <br />
-                <p class="label">Read:</p>
-                <label for="read" class="switch">
-                    <input type="checkbox" id="read" name="checkbox" />
-                    <span class="slider round"></span>
-                </label>
+
                 <br />
                 <p class="label">Published:</p>
                 <input type="date" id="published" name="published" />
