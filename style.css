@@ -1,5 +1,9 @@
 body {
-    background-image: linear-gradient(to right, rgb(0, 255, 132) , rgb(0, 255, 234));
+    background-image: linear-gradient(
+        to right,
+        rgb(0, 255, 234),
+        rgb(0, 255, 132)
+    );
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -10,7 +14,8 @@ body {
     border: 1px solid;
     width: 50%;
 }
-#library-overview > p, h3 {
+#library-overview > p,
+h3 {
     margin: 10px;
 }
 #list-heading-container {
@@ -21,10 +26,12 @@ body {
 #list-heading-container > p {
     justify-self: end;
 }
-#sort-by, #show {
+#sort-by,
+#show-by {
     padding: 1px;
     margin: 20px;
-    min-width: auto;
+    max-width: 50px;
+    min-width: 30px;
     min-height: 0;
 }
 .list-card {
@@ -51,4 +58,17 @@ body {
 }
 .wrong-input {
     color: darkred;
+}
+#add-btn {
+    color: white;
+    background-color: rgb(0, 132, 255);
+    height: 60px;
+    width: 60px;
+    padding: 0px;
+    border-radius: 30px;
+    border: none;
+    font-size: 30px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
 }

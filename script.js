@@ -17,6 +17,8 @@ let inputElems = document.getElementsByTagName("input");
 let formReadCheckbox = document.getElementById("read");
 let divId;
 let bookNr;
+let showBy = document.getElementById("show-by");
+let sortBy = document.getElementById("sort-by");
 
 let addBtn = document.getElementById("add-btn");
 let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
@@ -42,12 +44,31 @@ function addBookToLibrary() {
 
 function displayLibraryCards() {
     libraryList.innerHTML = "";
-    displayMyLibraryArr = myLibrary;
+    console.log(showBy.value);
+    switch (showBy.value) {
+        case "all":
+            displayMyLibraryArr = myLibrary;
+            break;
+        case "read":
+            for (let i = 0; i < myLibrary.length; i++) {
+                if (myLibrary[i].read === "read") {
+                    displayMyLibraryArr.push(myLibrary[i]);
+                }
+            }
+            break;
+        case "unread":
+            for (let i = 0; i < myLibrary.length; i++) {
+                if (myLibrary[i].read === "unread") {
+                    displayMyLibraryArr.push(myLibrary[i]);
+                }
+            }
+    }
+    console.log(displayMyLibraryArr);
     for (let i = 0; i < displayMyLibraryArr.length; i++) {
         let div = document.createElement("div");
         div.classList.add("list-card");
         div.id = `div${i}`;
-        
+
         for (const key in displayMyLibraryArr[i]) {
             let value = document.createElement("p");
             switch (key) {
@@ -59,8 +80,9 @@ function displayLibraryCards() {
                     value.textContent = `By: ${displayMyLibraryArr[i][key]}`;
                     break;
                 case "read":
-                    displayMyLibraryArr[i][key] === "read" ?
-                        value.textContent = "Book read" : value.textContent = "Book not read";  
+                    displayMyLibraryArr[i][key] === "read"
+                        ? (value.textContent = "Book read")
+                        : (value.textContent = "Book not read");
                     break;
                 case "pages":
                     value.textContent = `Number of Pages: ${displayMyLibraryArr[i][key]}`;
@@ -81,7 +103,6 @@ function displayLibraryCards() {
         libraryList.appendChild(div);
     }
 }
-
 
 clearForm = function () {
     document.getElementById("title").value = "";
@@ -109,14 +130,14 @@ function updateLibraryOverview() {
     totalBooks = myLibrary.length;
     totalReadBooks = 0;
     totalUnreadBooks = 0;
-    
+
     for (let i = 0; i < myLibrary.length; i++) {
-        console.log(myLibrary[i].read)
+        console.log(myLibrary[i].read);
         if (myLibrary[i].read === "read") {
-            totalReadBooks ++
-        } 
+            totalReadBooks++;
+        }
         if (myLibrary[i].read === "unread") {
-            totalUnreadBooks ++
+            totalUnreadBooks++;
         }
     }
     totalBooksText.textContent = `Number of Books: ${totalBooks}`;
@@ -125,7 +146,7 @@ function updateLibraryOverview() {
 }
 
 function edit() {
-    divId = this.parentNode.id; 
+    divId = this.parentNode.id;
     bookNr = divId.replace(/^\D+/g, ""); //Removes all letters from string. Only numbers left.
     form.style.display = "block";
     mainPage.classList.add("blur");
@@ -137,7 +158,8 @@ function edit() {
     document.getElementById("read").value = myLibrary[bookNr].read;
     document.getElementById("pages").value = myLibrary[bookNr].pages;
     document.getElementById("published").value = myLibrary[bookNr].published;
-    document.getElementById("description").value = myLibrary[bookNr].description;
+    document.getElementById("description").value =
+        myLibrary[bookNr].description;
 }
 
 addBtn.onclick = function () {
@@ -167,27 +189,33 @@ addBookToLibraryBtn.onclick = function () {
     }
 };
 
-ConfirmEditFormBtn.onclick = function() {
+ConfirmEditFormBtn.onclick = function () {
     console.log(myLibrary[bookNr]);
     myLibrary[bookNr].title = document.getElementById("title").value;
     myLibrary[bookNr].author = document.getElementById("author").value;
     myLibrary[bookNr].read = document.getElementById("read").value;
     myLibrary[bookNr].pages = document.getElementById("pages").value;
     myLibrary[bookNr].published = document.getElementById("published").value;
-    myLibrary[bookNr].description = document.getElementById("description").value;
+    myLibrary[bookNr].description =
+        document.getElementById("description").value;
     console.log(myLibrary[bookNr]);
     clearForm();
     displayLibraryCards();
     updateLibraryOverview();
-}
+};
 
 cancelBtn.onclick = function () {
     clearForm();
 };
-testBtn.onclick = function() {
-    console.log(myLibrary);
-}
-
+testBtn.onclick = function () {
+    console.log(showBy.value);
+    console.log(myLibrary[0].read);
+    console.log(myLibrary[1].read);
+};
+showBy.onchange = function () {
+    displayLibraryCards();
+};
+sortBy.onchange = function () {};
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
