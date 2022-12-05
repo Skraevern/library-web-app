@@ -13,6 +13,9 @@ let bookNr;
 const showBySelected = document.getElementById("show-by");
 const sortBySelected = document.getElementById("sort-by");
 const addBtn = document.getElementById("add-btn");
+const ratingSelected = document.getElementById("rating");
+const ratingText = document.getElementById("rating-text");
+ratingText.textContent = ratingSelected.value;
 const addBookToLibraryBtn = document.getElementById("add-to-library-btn");
 const ConfirmEditFormBtn = document.getElementById("edit-form-btn");
 const cancelBtn = document.getElementById("cancel-btn");
@@ -209,6 +212,9 @@ showBySelected.onchange = function () {
 sortBySelected.onchange = function () {
     displayLibraryCards();
 };
+ratingSelected.onchange = function () {
+    ratingText.textContent = ratingSelected.value;
+}
 randomBooks()
 displayLibraryCards()
 displayLibraryOverview();
