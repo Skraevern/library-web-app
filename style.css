@@ -30,9 +30,13 @@ h3 {
 #show-by {
     padding: 1px;
     margin: 20px;
-    max-width: 50px;
-    min-width: 30px;
+    max-width: 70px;
+    min-width: 50px;
     min-height: 0;
+}
+#sort-by {
+    min-width: 100px;
+    max-width: 150px
 }
 .list-card {
     background-color: rgb(185, 255, 254);

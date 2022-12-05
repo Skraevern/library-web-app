@@ -27,7 +27,8 @@ function randomBooks() {
         let randomTitle = Math.floor(Math.random() * 100) + 1;
         let randomAuthor = Math.floor(Math.random() * 100) + 1;
         let randomPages = Math.floor(Math.random() * 100) + 1;
-        newBook = new Book(randomTitle, randomAuthor, "unread", randomPages, "", "" )
+        let randomRating = Math.floor(Math.random() * 10) + 1;
+        newBook = new Book(randomTitle,randomAuthor,"unread",randomRating,randomPages,"","");
         myLibrary.push(newBook);
     }
 }
@@ -63,17 +64,22 @@ function displayLibraryCards() {
 
         for (const key in myLibraryDisplayArr[i]) {
             const value = document.createElement("p");
-            if(key === "title") {
+            if (key === "title") {
                 value.textContent = myLibraryDisplayArr[i][key];
                 value.style.fontWeight = "bold";
             }
-            if(key === "author") value.textContent = `By: ${myLibraryDisplayArr[i][key]}`;
-            if(key === "read") myLibraryDisplayArr[i][key] === "read" ? (value.textContent = "Book read") : (value.textContent = "Book not read");
-            if(key === "rating") value.textContent = `Rating: ${myLibraryDisplayArr[i][key]}`
+            if (key === "author") value.textContent = `By: ${myLibraryDisplayArr[i][key]}`;
+            if (key === "read") myLibraryDisplayArr[i][key] === "read" ? (value.textContent = "Book read") : (value.textContent = "Book not read");
+            if (key === "rating") { 
+                let stars = myLibraryDisplayArr[i].rating;
+                for (let i = 0; i < stars; i++) { 
+                    value.textContent += "⭐️"; 
+                }
+            }
             if (key === "pages") value.textContent = `Number of Pages: ${myLibraryDisplayArr[i][key]}`;
             if (key === "published") value.textContent = `Published: ${myLibraryDisplayArr[i][key]}`;
             if (key === "description") value.textContent = myLibraryDisplayArr[i][key];
-            
+
             div.appendChild(value);
         }
         const editBtn = document.createElement("button");
@@ -84,31 +90,36 @@ function displayLibraryCards() {
     }
 }
 function showReadUnread() {
-    if(showBySelected.value === "all") myLibraryDisplayArr = myLibrary;
-    if(showBySelected.value === "read") {            
-        for (let i = 0; i < myLibrary.length; i++) {
-            if (myLibrary[i].read === "read") myLibraryDisplayArr.push(myLibrary[i]);
-        }
-    } 
-    if(showBySelected.value === "unread") {
-        for (let i = 0; i < myLibrary.length; i++) {
-            if (myLibrary[i].read === "unread") myLibraryDisplayArr.push(myLibrary[i]);
+    if (showBySelected.value === "all") myLibraryDisplayArr = myLibrary;
+    if (showBySelected.value === "read") {
+        for (let i = 0; i < myLibrary.length; i++) { 
+            if (myLibrary[i].read === "read") myLibraryDisplayArr.push(myLibrary[i]); 
         }
     }
-};
+    if (showBySelected.value === "unread") {
+        for (let i = 0; i < myLibrary.length; i++) {
+            if (myLibrary[i].read === "unread")
+                myLibraryDisplayArr.push(myLibrary[i]);
+        }
+    }
+}
 function showSorted() {
-    if (sortBySelected.value === "time-added") myLibraryDisplayArr.sort((a, b) => (a.bookNumber > b.bookNumber ? 1 : -1));
-    if (sortBySelected.value === "time-added-reverse") myLibraryDisplayArr.sort((a, b) => (a.bookNumber < b.bookNumber ? 1 : -1));
+    if (sortBySelected.value === "time-added")
+        myLibraryDisplayArr.sort((a, b) => a.bookNumber > b.bookNumber ? 1 : -1
+        );
+    if (sortBySelected.value === "time-added-reverse")
+        myLibraryDisplayArr.sort((a, b) => a.bookNumber < b.bookNumber ? 1 : -1
+        );
     if (sortBySelected.value === "title-a-z") myLibraryDisplayArr.sort((a, b) => (a.title > b.title ? 1 : -1));
     if (sortBySelected.value === "title-z-a") myLibraryDisplayArr.sort((a, b) => (a.title < b.title ? 1 : -1));
     if (sortBySelected.value === "author-a-z") myLibraryDisplayArr.sort((a, b) => (a.author > b.author ? 1 : -1));
     if (sortBySelected.value === "author-z-a") myLibraryDisplayArr.sort((a, b) => (a.author < b.author ? 1 : -1));
-    //if (sortBySelected.value === "rating-high-low")
-    //if (sortBySelected.value === "rating-low-high")
-    if (sortBySelected.value === "pages-high-low") myLibraryDisplayArr.sort((a, b) => (a.pages < b.pages ? 1 : -1));
+    if (sortBySelected.value === "rating-high-low") myLibraryDisplayArr.sort((a, b) => a.rating < b.rating ? 1 : -1);
+    if (sortBySelected.value === "rating-low-high") myLibraryDisplayArr.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+    if (sortBySelected.value === "pages-high-low") myLibraryDisplayArr.sort((a, b) => a.pages < b.pages ? 1 : -1);
     if (sortBySelected.value === "pages-low-high") myLibraryDisplayArr.sort((a, b) => (a.pages > b.pages ? 1 : -1));
-    if (sortBySelected.value === "published-new-old") myLibraryDisplayArr.sort((a, b) => (a.published < b.published ? 1 : -1));
-    if (sortBySelected.value === "published-old-new") myLibraryDisplayArr.sort((a, b) => (a.published > b.published ? 1 : -1));
+    if (sortBySelected.value === "published-new-old") myLibraryDisplayArr.sort((a, b) => a.published < b.published ? 1 : -1);
+    if (sortBySelected.value === "published-old-new") myLibraryDisplayArr.sort((a, b) => a.published > b.published ? 1 : -1);
 }
 
 clearForm = function () {
@@ -161,6 +172,7 @@ function edit() {
     document.getElementById("author").value = myLibrary[bookNr].author;
     document.getElementById("read").value = myLibrary[bookNr].read;
     document.getElementById("rating").value = myLibrary[bookNr].rating;
+    ratingText.textContent = myLibrary[bookNr].rating;
     document.getElementById("pages").value = myLibrary[bookNr].pages;
     document.getElementById("published").value = myLibrary[bookNr].published;
     document.getElementById("description").value = myLibrary[bookNr].description;
@@ -220,8 +232,7 @@ sortBySelected.onchange = function () {
 };
 ratingSelected.onchange = function () {
     ratingText.textContent = ratingSelected.value;
-}
-randomBooks()
-displayLibraryCards()
+};
+randomBooks();
+displayLibraryCards();
 displayLibraryOverview();
-
