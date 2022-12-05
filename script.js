@@ -17,8 +17,8 @@ let inputElems = document.getElementsByTagName("input");
 let formReadCheckbox = document.getElementById("read");
 let divId;
 let bookNr;
-let showBy = document.getElementById("show-by");
-let sortBy = document.getElementById("sort-by");
+let showBySelected = document.getElementById("show-by");
+let sortBySelected = document.getElementById("sort-by");
 
 let addBtn = document.getElementById("add-btn");
 let addBookToLibraryBtn = document.getElementById("add-to-library-btn");
@@ -27,7 +27,20 @@ let cancelBtn = document.getElementById("cancel-btn");
 ConfirmEditFormBtn.style.display = "none";
 let testBtn = document.getElementById("test-btn");
 
+function randomBooks() {
+    let numberOfBooks = Math.floor(Math.random() * 100) + 1;
+    for (let i = 0; i < numberOfBooks; i++) {
+        let randomTitle = Math.floor(Math.random() * 100) + 1;
+        let randomAuthor = Math.floor(Math.random() * 100) + 1;
+        let randomPages = Math.floor(Math.random() * 100) + 1;
+        newBook = new Book(randomTitle, randomAuthor, "unread", randomPages, "", "" )
+        myLibrary.push(newBook);
+    }
+
+}
+
 function Book(title, author, read, pages, published, description) {
+    this.bookNumber = myLibrary.length + 1;
     this.title = title;
     this.author = author;
     this.read = read;
@@ -46,7 +59,7 @@ function displayLibraryCards() {
     libraryList.innerHTML = "";
     myLibraryDisplayArr = [];
     showReadUnread();
-
+    showSorted();
 
     for (let i = 0; i < myLibraryDisplayArr.length; i++) {
         let div = document.createElement("div");
@@ -88,25 +101,36 @@ function displayLibraryCards() {
     }
 }
 function showReadUnread() {
-    switch (showBy.value) {
+    switch (showBySelected.value) {
         case "all":
             myLibraryDisplayArr = myLibrary;
             break;
         case "read":
             for (let i = 0; i < myLibrary.length; i++) {
-                if (myLibrary[i].read === "read") {
-                    myLibraryDisplayArr.push(myLibrary[i]);
-                }
+                if (myLibrary[i].read === "read") myLibraryDisplayArr.push(myLibrary[i]);
             }
             break;
         case "unread":
             for (let i = 0; i < myLibrary.length; i++) {
-                if (myLibrary[i].read === "unread") {
-                    myLibraryDisplayArr.push(myLibrary[i]);
-                }
+                if (myLibrary[i].read === "unread") myLibraryDisplayArr.push(myLibrary[i]);
             }
     } 
 };
+function showSorted() {
+    if (sortBySelected.value === "time-added") myLibraryDisplayArr.sort((a, b) => (a.bookNumber > b.bookNumber ? 1 : -1));
+    if (sortBySelected.value === "time-added-reverse") myLibraryDisplayArr.sort((a, b) => (a.bookNumber < b.bookNumber ? 1 : -1));
+    if (sortBySelected.value === "title-a-z") myLibraryDisplayArr.sort((a, b) => (a.title > b.title ? 1 : -1));
+    if (sortBySelected.value === "title-z-a") myLibraryDisplayArr.sort((a, b) => (a.title < b.title ? 1 : -1));
+    if (sortBySelected.value === "author-a-z") myLibraryDisplayArr.sort((a, b) => (a.author > b.author ? 1 : -1));
+    if (sortBySelected.value === "author-z-a") myLibraryDisplayArr.sort((a, b) => (a.author < b.author ? 1 : -1));
+    //if (sortBySelected.value === "rating-high-low")
+    //if (sortBySelected.value === "rating-low-high")
+    if (sortBySelected.value === "pages-high-low") myLibraryDisplayArr.sort((a, b) => (a.pages < b.pages ? 1 : -1));
+    if (sortBySelected.value === "pages-low-high") myLibraryDisplayArr.sort((a, b) => (a.pages > b.pages ? 1 : -1));
+    if (sortBySelected.value === "published-new-old") myLibraryDisplayArr.sort((a, b) => (a.published < b.published ? 1 : -1));
+    if (sortBySelected.value === "published-old-new") myLibraryDisplayArr.sort((a, b) => (a.published > b.published ? 1 : -1));
+}
+
 clearForm = function () {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
@@ -210,14 +234,18 @@ cancelBtn.onclick = function () {
     clearForm();
 };
 testBtn.onclick = function () {
-    console.log(showBy.value);
+    console.log(myLibrary);
     console.log(myLibrary[0].read);
     console.log(myLibrary[1].read);
 };
-showBy.onchange = function () {
+showBySelected.onchange = function () {
     displayLibraryCards();
 };
-sortBy.onchange = function () {};
+sortBySelected.onchange = function () {
+    displayLibraryCards();
+};
+randomBooks()
+displayLibraryCards()
 displayLibraryOverview();
 //const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read");
 
