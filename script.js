@@ -15,7 +15,6 @@ const sortBySelected = document.getElementById("sort-by");
 const addBtn = document.getElementById("add-btn");
 const ratingSelected = document.getElementById("rating");
 const ratingText = document.getElementById("rating-text");
-ratingText.textContent = ratingSelected.value;
 const addBookToLibraryBtn = document.getElementById("add-to-library-btn");
 const ConfirmEditFormBtn = document.getElementById("edit-form-btn");
 const cancelBtn = document.getElementById("cancel-btn");
@@ -33,11 +32,12 @@ function randomBooks() {
     }
 }
 
-function Book(title, author, read, pages, published, description) {
+function Book(title, author, read, rating, pages, published, description) {
     this.bookNumber = myLibrary.length + 1;
     this.title = title;
     this.author = author;
     this.read = read;
+    this.rating = rating;
     this.pages = pages;
     this.published = published;
     this.description = description;
@@ -69,6 +69,7 @@ function displayLibraryCards() {
             }
             if(key === "author") value.textContent = `By: ${myLibraryDisplayArr[i][key]}`;
             if(key === "read") myLibraryDisplayArr[i][key] === "read" ? (value.textContent = "Book read") : (value.textContent = "Book not read");
+            if(key === "rating") value.textContent = `Rating: ${myLibraryDisplayArr[i][key]}`
             if (key === "pages") value.textContent = `Number of Pages: ${myLibraryDisplayArr[i][key]}`;
             if (key === "published") value.textContent = `Published: ${myLibraryDisplayArr[i][key]}`;
             if (key === "description") value.textContent = myLibraryDisplayArr[i][key];
@@ -114,6 +115,7 @@ clearForm = function () {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("read").value = "unread";
+    document.getElementById("rating").value = 5;
     document.getElementById("pages").value = "";
     document.getElementById("published").value = "";
     document.getElementById("description").value = "";
@@ -158,6 +160,7 @@ function edit() {
     document.getElementById("title").value = myLibrary[bookNr].title;
     document.getElementById("author").value = myLibrary[bookNr].author;
     document.getElementById("read").value = myLibrary[bookNr].read;
+    document.getElementById("rating").value = myLibrary[bookNr].rating;
     document.getElementById("pages").value = myLibrary[bookNr].pages;
     document.getElementById("published").value = myLibrary[bookNr].published;
     document.getElementById("description").value = myLibrary[bookNr].description;
@@ -166,6 +169,7 @@ function edit() {
 addBtn.onclick = function () {
     form.style.display = "block";
     mainPage.classList.add("blur");
+    ratingText.textContent = ratingSelected.value;
 };
 addBookToLibraryBtn.onclick = function () {
     let title = document.getElementById("title");
@@ -177,6 +181,7 @@ addBookToLibraryBtn.onclick = function () {
             document.getElementById("title").value,
             document.getElementById("author").value,
             document.getElementById("read").value,
+            document.getElementById("rating").value,
             document.getElementById("pages").value,
             document.getElementById("published").value,
             document.getElementById("description").value
@@ -190,6 +195,7 @@ ConfirmEditFormBtn.onclick = function () {
     myLibrary[bookNr].title = document.getElementById("title").value;
     myLibrary[bookNr].author = document.getElementById("author").value;
     myLibrary[bookNr].read = document.getElementById("read").value;
+    myLibrary[bookNr].rating = document.getElementById("rating").value;
     myLibrary[bookNr].pages = document.getElementById("pages").value;
     myLibrary[bookNr].published = document.getElementById("published").value;
     myLibrary[bookNr].description = document.getElementById("description").value;
