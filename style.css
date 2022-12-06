@@ -67,6 +67,7 @@ h3 {
     );
     border: 1px solid black;
     border-radius: 10px;
+    padding: 10px;
 }
 .label {
     margin-top: 5px;

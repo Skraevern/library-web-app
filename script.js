@@ -67,6 +67,7 @@ function displayLibraryCards() {
             if (key === "title") {
                 value.textContent = myLibraryDisplayArr[i][key];
                 value.style.fontWeight = "bold";
+                value.style.fontSize = "20px"
             }
             if (key === "author") value.textContent = `By: ${myLibraryDisplayArr[i][key]}`;
             if (key === "read") myLibraryDisplayArr[i][key] === "read" ? (value.textContent = "Book read") : (value.textContent = "Book not read");
